@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prosidba - Anastasija & Matija</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #fce4ec, #e1f5fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #message {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #000000;
+      margin-bottom: 20px;
+      animation: fadeIn 2s;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      background-color: #f06292;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ec407a;
+    }
+
+    #slideshow {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+
+    #slideshow img,
+    #slideshow video {
+      position: absolute;
+      width: auto;
+      height: auto;
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    #final-message {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #000000;
+      display: none;
+      animation: fadeIn 2s;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #reaction-video {
+      position: relative;
+    }
+
+    #reaction-caption {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      font-weight: bold;
+      color: #000000;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="message">Draga Anastasija, ovaj sajt je napravljen samo za tebe! ❤️</div>
+    <button id="start-button">Nastavi dalje</button>
+    <div id="slideshow">
+      <img src="9acb0b89-2662-4c2a-bfa3-367270855d00.jpg" alt="Slika 1">
+      <img src="d6ee95c7-0bd1-4675-a072-309a3255610b.jpg" alt="Slika 2">
+      <img src="de4198e3-18dc-4293-a44d-363cf5ebcfdd.jpg" alt="Slika 3">
+      <img src="6813db0a-daf6-478f-9d46-0ffad673742a.jpg" alt="Slika 4">
+      <img src="fffb2e60-af0e-42f6-b4df-12f904d7c9ff.jpg" alt="Slika 5">
+      <img src="665c6087-3bb7-4bcf-bdf2-36ff2e11f979.jpg" alt="Slika 6">
+      <img src="23876640-44c2-42d5-af76-7ec912742c81.jpg" alt="Slika 7">
+      <img src="35211ede-7314-4ce1-a4cc-7726709c76ac.jpg" alt="Slika 8">
+      <video src="83d48110-08ea-44c4-82b2-8f7842140fff.mp4" muted></video>
+    </div>
+    <div id="final-message">Hoćeš li se udati za mene? ❤️</div>
+    <div class="hidden" id="reaction-video">
+      <div id="reaction-caption">Tako je breee</div>
+      <video src="d67f6e37-ebdd-4707-b92f-c46324147ef1(1) (online-video-cutter.com).mp4" autoplay></video>
+    </div>
+  </div>
+
+  <audio id="background-music" src="ringispil.m4a"></audio>
+
+  <script>
+    const startButton = document.getElementById("start-button");
+    const message = document.getElementById("message");
+    const slideshow = document.getElementById("slideshow");
+    const imagesAndVideos = [...slideshow.children];
+    const finalMessage = document.getElementById("final-message");
+    const reactionVideo = document.getElementById("reaction-video");
+    const backgroundMusic = document.getElementById("background-music");
+
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      if (currentSlide < imagesAndVideos.length) {
+        imagesAndVideos.forEach((item, index) => {
+          item.style.opacity = index === currentSlide ? "1" : "0";
+        });
+
+        if (imagesAndVideos[currentSlide].tagName === "VIDEO") {
+          const video = imagesAndVideos[currentSlide];
+          video.play();
+          video.onended = () => {
+            currentSlide++;
+            showNextSlide();
+          };
+        } else {
+          currentSlide++;
+          setTimeout(showNextSlide, 3000);
+        }
+      } else {
+        slideshow.style.display = "none";
+        finalMessage.style.display = "block";
+        backgroundMusic.pause(); // Zaustavlja muziku
+
+        const yesButton = document.createElement("button");
+        yesButton.innerText = "Da";
+        yesButton.onclick = () => showReaction();
+        const ofCourseButton = document.createElement("button");
+        ofCourseButton.innerText = "Naravno";
+        ofCourseButton.onclick = () => showReaction();
+
+        finalMessage.appendChild(yesButton);
+        finalMessage.appendChild(ofCourseButton);
+      }
+    }
+
+    startButton.addEventListener("click", () => {
+      message.style.display = "none";
+      startButton.style.display = "none";
+      slideshow.style.display = "block";
+      backgroundMusic.play().catch(error => {
+        console.error("Muzika nije mogla da se pusti:", error);
+      });
+      showNextSlide();
+    });
+
+    function showReaction() {
+      finalMessage.style.display = "none";
+      reactionVideo.style.display = "block";
+      const video = reactionVideo.querySelector("video");
+      video.play();
+    }
+  </script>
+</body>
+</html>

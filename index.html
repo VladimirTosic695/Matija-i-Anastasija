@@ -122,7 +122,7 @@
     <div id="message">Draga Anastasija, ovaj sajt je napravljen samo za tebe! ❤️</div>
     <button id="start-button">Nastavi dalje</button>
     <div id="slideshow">
-  <img src="9acb0b89-2662-4c2a-bfa3-367270855d00.jpg" alt="Slika 1">
+      <img src="9acb0b89-2662-4c2a-bfa3-367270855d00.jpg" alt="Slika 1">
       <img src="d6ee95c7-0bd1-4675-a072-309a3255610b.jpg" alt="Slika 2">
       <img src="de4198e3-18dc-4293-a44d-363cf5ebcfdd.jpg" alt="Slika 3">
       <img src="6813db0a-daf6-478f-9d46-0ffad673742a.jpg" alt="Slika 4">
@@ -130,16 +130,16 @@
       <img src="665c6087-3bb7-4bcf-bdf2-36ff2e11f979.jpg" alt="Slika 6">
       <img src="23876640-44c2-42d5-af76-7ec912742c81.jpg" alt="Slika 7">
       <img src="35211ede-7314-4ce1-a4cc-7726709c76ac.jpg" alt="Slika 8">
-      <video src="assets/83d48110-08ea-44c4-82b2-8f7842140fff.mp4" muted></video>
+      <video src="83d48110-08ea-44c4-82b2-8f7842140fff.mp4" muted></video>
     </div>
     <div id="final-message">Hoćeš li se udati za mene? ❤️</div>
     <div class="hidden" id="reaction-video">
       <div id="reaction-caption">Tako je breee</div>
-      <video src="assets/d67f6e37-ebdd-4707-b92f-c46324147ef1(1) (online-video-cutter.com).mp4" autoplay></video>
+      <video src="d67f6e37-ebdd-4707-b92f-c46324147ef1(1) (online-video-cutter.com).mp4" autoplay></video>
     </div>
   </div>
 
-  <audio id="background-music" src="assets/ringispil.m4a"></audio>
+  <audio id="background-music" src="ringispil.m4a"></audio>
 
   <script>
     const startButton = document.getElementById("start-button");
@@ -166,10 +166,8 @@
             showNextSlide();
           };
         } else {
-          setTimeout(() => {
-            currentSlide++;
-            showNextSlide();
-          }, 3000);
+          currentSlide++;
+          setTimeout(showNextSlide, 3000);
         }
       } else {
         slideshow.style.display = "none";
